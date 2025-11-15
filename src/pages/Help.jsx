@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Send, Bot, User, Sparkles, MessageCircle, Package, ShoppingCart, BarChart, HelpCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import ReactMarkdown from 'react-markdown';
 
 const quickSuggestions = [
   { label: "How to add a product?", icon: Package, category: "products" },
@@ -21,9 +22,16 @@ export default function Help() {
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
   const messagesEndRef = useRef(null);
+  const unsubscribeRef = useRef(null);
 
   useEffect(() => {
     initConversation();
+    
+    return () => {
+      if (unsubscribeRef.current) {
+        unsubscribeRef.current();
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -42,13 +50,13 @@ export default function Help() {
       setConversation(conv);
       
       // Subscribe to updates
-      const unsubscribe = base44.agents.subscribeToConversation(conv.id, (data) => {
+      unsubscribeRef.current = base44.agents.subscribeToConversation(conv.id, (data) => {
         setMessages(data.messages || []);
+        setSending(false);
       });
-      
-      return () => unsubscribe();
     } catch (error) {
       console.error("Error initializing conversation:", error);
+      setSending(false);
     }
   };
 
@@ -64,7 +72,6 @@ export default function Help() {
       setInput('');
     } catch (error) {
       console.error("Error sending message:", error);
-    } finally {
       setSending(false);
     }
   };
@@ -99,7 +106,8 @@ export default function Help() {
                   <button
                     key={idx}
                     onClick={() => handleQuickSuggestion(suggestion)}
-                    className="w-full p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-blue-300 dark:hover:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all text-left group"
+                    disabled={sending}
+                    className="w-full p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:border-blue-300 dark:hover:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all text-left group disabled:opacity-50"
                   >
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform">
@@ -135,7 +143,7 @@ export default function Help() {
               <Bot className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               AI Assistant
               <Badge variant="outline" className="ml-auto bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
-                Online
+                {conversation ? 'Online' : 'Connecting...'}
               </Badge>
             </CardTitle>
           </CardHeader>
@@ -173,7 +181,13 @@ export default function Help() {
                           : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
                       }`}
                     >
-                      <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                      {message.role === 'user' ? (
+                        <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                      ) : (
+                        <ReactMarkdown className="text-sm prose prose-sm dark:prose-invert max-w-none">
+                          {message.content}
+                        </ReactMarkdown>
+                      )}
                     </div>
                     {message.role === 'user' && (
                       <div className="w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center flex-shrink-0">
@@ -182,6 +196,20 @@ export default function Help() {
                     )}
                   </div>
                 ))
+              )}
+              {sending && (
+                <div className="flex gap-3 justify-start">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                    <Bot className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-2xl">
+                    <div className="flex gap-1">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    </div>
+                  </div>
+                </div>
               )}
               <div ref={messagesEndRef} />
             </div>

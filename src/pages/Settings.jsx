@@ -7,15 +7,48 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Settings as SettingsIcon, Store, Receipt, LogOut, Save } from "lucide-react";
 import { toast } from "sonner";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const currencies = [
+  { code: "PHP", name: "Philippine Peso (₱)" },
+  { code: "USD", name: "US Dollar ($)" },
+  { code: "EUR", name: "Euro (€)" },
+  { code: "GBP", name: "British Pound (£)" },
+  { code: "JPY", name: "Japanese Yen (¥)" },
+  { code: "CNY", name: "Chinese Yuan (¥)" },
+  { code: "KRW", name: "South Korean Won (₩)" },
+  { code: "SGD", name: "Singapore Dollar (S$)" },
+  { code: "MYR", name: "Malaysian Ringgit (RM)" },
+  { code: "THB", name: "Thai Baht (฿)" },
+  { code: "IDR", name: "Indonesian Rupiah (Rp)" },
+  { code: "VND", name: "Vietnamese Dong (₫)" },
+  { code: "INR", name: "Indian Rupee (₹)" },
+  { code: "AUD", name: "Australian Dollar (A$)" },
+  { code: "CAD", name: "Canadian Dollar (C$)" },
+  { code: "CHF", name: "Swiss Franc (Fr)" },
+  { code: "NZD", name: "New Zealand Dollar (NZ$)" },
+  { code: "HKD", name: "Hong Kong Dollar (HK$)" },
+  { code: "TWD", name: "Taiwan Dollar (NT$)" },
+  { code: "BRL", name: "Brazilian Real (R$)" },
+  { code: "MXN", name: "Mexican Peso (Mex$)" },
+  { code: "AED", name: "UAE Dirham (د.إ)" },
+  { code: "SAR", name: "Saudi Riyal (﷼)" }
+];
 
 export default function Settings() {
   const [storeSettings, setStoreSettings] = useState({
     store_name: "InvenTrack Store",
     address: "123 Business Street",
-    phone: "+1 (555) 123-4567",
+    phone: "+63 (917) 123-4567",
     email: "store@inventtrack.com",
-    tax_rate: 10,
-    currency: "USD"
+    tax_rate: 12,
+    currency: "PHP"
   });
 
   const [receiptSettings, setReceiptSettings] = useState({
@@ -116,12 +149,18 @@ export default function Settings() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="currency">Currency</Label>
-                <Input
-                  id="currency"
-                  value={storeSettings.currency}
-                  onChange={(e) => setStoreSettings({ ...storeSettings, currency: e.target.value })}
-                  className="dark:bg-gray-800 dark:border-gray-700"
-                />
+                <Select value={storeSettings.currency} onValueChange={(value) => setStoreSettings({ ...storeSettings, currency: value })}>
+                  <SelectTrigger className="dark:bg-gray-800 dark:border-gray-700">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="dark:bg-gray-900 dark:border-gray-800 max-h-[300px]">
+                    {currencies.map((curr) => (
+                      <SelectItem key={curr.code} value={curr.code}>
+                        {curr.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
