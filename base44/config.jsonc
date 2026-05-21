@@ -1,5 +1,5 @@
 {
-  "name": "StockWise Pro",
+  "name": "StockWise PRO",
   "site": {
     "installCommand": "npm install",
     "buildCommand": "npm run build",
