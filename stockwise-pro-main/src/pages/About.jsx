@@ -7,10 +7,7 @@ import {
   Sparkles, 
   Shield, 
   Zap, 
-  Users,
-  Heart,
-  Github,
-  Globe
+  Users
 } from "lucide-react";
 
 export default function About() {
@@ -47,15 +44,6 @@ export default function About() {
     }
   ];
 
-  const techStack = [
-    "React 18",
-    "Tailwind CSS",
-    "Shadcn/UI",
-    "Recharts",
-    "React Query",
-    "Base44 Platform"
-  ];
-
   return (
     <div className="p-4 md:p-8 space-y-8">
       {/* Seção principal */}
@@ -72,9 +60,6 @@ export default function About() {
         <div className="flex items-center justify-center gap-3">
           <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-800">
             Versão 1.0.0
-          </Badge>
-          <Badge className="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800">
-            Pronto para produção
           </Badge>
         </div>
       </div>
@@ -108,29 +93,6 @@ export default function About() {
           })}
         </div>
       </div>
-
-      {/* Tech Stack */}
-      <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-        <CardHeader className="border-b border-gray-200 dark:border-gray-800">
-          <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
-            <Code className="w-5 h-5" />
-            Stack tecnológica
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-6">
-          <div className="flex flex-wrap gap-3">
-            {techStack.map((tech, idx) => (
-              <Badge 
-                key={idx}
-                variant="outline"
-                className="px-4 py-2 text-sm bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
-              >
-                {tech}
-              </Badge>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
 
       {/* O que está incluído */}
       <Card className="border-gray-200 dark:border-gray-800 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
@@ -170,43 +132,9 @@ export default function About() {
         </CardContent>
       </Card>
 
-      {/* Créditos */}
-      <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
-        <CardHeader className="border-b border-gray-200 dark:border-gray-800">
-          <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
-            <Heart className="w-5 h-5 text-red-500" />
-            Desenvolvido com
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-6">
-          <div className="space-y-4 text-center">
-            <p className="text-gray-600 dark:text-gray-400">
-              Desenvolvido para pequenos negócios simplificarem suas operações com tecnologia moderna e apoio de IA.
-            </p>
-            <p className="text-sm text-gray-500 dark:text-gray-500">
-              Baseado em Base44 Platform • React • Tailwind CSS
-            </p>
-            <div className="flex items-center justify-center gap-6 pt-4">
-              <a 
-                href="https://base44.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline"
-              >
-                <Globe className="w-4 h-4" />
-                <span className="text-sm">Base44 Platform</span>
-              </a>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Rodapé */}
       <div className="text-center py-8 text-sm text-gray-500 dark:text-gray-400">
         <p>© 2024 StockWise PRO. Todos os direitos reservados.</p>
-        <p className="mt-2">
-          Feito para estudantes de TI e pequenos negócios
-        </p>
       </div>
     </div>
   );

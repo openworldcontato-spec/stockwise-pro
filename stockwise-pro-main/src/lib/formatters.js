@@ -1,8 +1,12 @@
+import { loadStoreSettings } from './appSettings';
+
 export const formatCurrency = (value = 0) => {
   const numericValue = Number(value) || 0;
+  const currency = loadStoreSettings().currency || 'BRL';
+
   return new Intl.NumberFormat('pt-BR', {
     style: 'currency',
-    currency: 'BRL'
+    currency
   }).format(numericValue);
 };
 

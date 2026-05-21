@@ -81,15 +81,15 @@ export default function Help() {
   };
 
   return (
-    <div className="p-4 md:p-8 h-[calc(100vh-5rem)] flex flex-col">
-      <div className="mb-6">
+    <div className="p-4 md:p-8 min-h-[calc(100vh-5rem)] space-y-6">
+      <div>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Ajuda e suporte</h1>
         <p className="text-gray-600 dark:text-gray-400">
           Receba ajuda instantânea do assistente de IA
         </p>
       </div>
 
-      <div className="flex-1 grid lg:grid-cols-3 gap-6 overflow-hidden">
+      <div className="grid lg:grid-cols-3 gap-6 items-start">
         {/* Quick Suggestions */}
         <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
           <CardHeader className="border-b border-gray-200 dark:border-gray-800">
@@ -137,7 +137,7 @@ export default function Help() {
         </Card>
 
         {/* Chat Section */}
-        <Card className="lg:col-span-2 flex flex-col border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
+        <Card className="lg:col-span-2 flex flex-col min-h-[620px] border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
           <CardHeader className="border-b border-gray-200 dark:border-gray-800">
             <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
               <Bot className="w-5 h-5 text-blue-600 dark:text-blue-400" />
@@ -150,7 +150,7 @@ export default function Help() {
 
           <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+            <div className="flex-1 max-h-[520px] overflow-y-auto p-6 space-y-4">
               {messages.length === 0 ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">

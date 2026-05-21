@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { formatCurrency } from "@/lib/formatters";
+import { APP_SETTINGS_UPDATED_EVENT, loadStoreSettings } from "@/lib/appSettings";
 
 export default function POS() {
   const queryClient = useQueryClient();
@@ -29,9 +30,23 @@ export default function POS() {
   const [cart, setCart] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [discount, setDiscount] = useState(0);
-  const [taxRate] = useState(0);
+  const [taxRate, setTaxRate] = useState(() => Number(loadStoreSettings().tax_rate) || 0);
   const [showCheckout, setShowCheckout] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('cash');
+
+  useEffect(() => {
+    const updateTaxRateFromSettings = () => {
+      setTaxRate(Number(loadStoreSettings().tax_rate) || 0);
+    };
+
+    window.addEventListener(APP_SETTINGS_UPDATED_EVENT, updateTaxRateFromSettings);
+    window.addEventListener('storage', updateTaxRateFromSettings);
+
+    return () => {
+      window.removeEventListener(APP_SETTINGS_UPDATED_EVENT, updateTaxRateFromSettings);
+      window.removeEventListener('storage', updateTaxRateFromSettings);
+    };
+  }, []);
 
   const { data: products = [] } = useQuery({
     queryKey: ['products'],
