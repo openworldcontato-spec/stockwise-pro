@@ -32,7 +32,7 @@ export default function StatsCard({ title, value, change, subtitle, icon: Icon, 
           )}
           {alert && (
             <div className="flex items-center gap-1 text-sm font-medium px-2 py-1 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 animate-pulse">
-              Alert
+              Alerta
             </div>
           )}
         </div>

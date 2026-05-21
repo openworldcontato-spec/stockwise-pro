@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Sparkles, TrendingUp, AlertCircle, Lightbulb, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import { translatePriority } from "@/lib/formatters";
 
 const priorityColors = {
   urgent: "bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 border-red-200 dark:border-red-800",
@@ -31,15 +32,15 @@ export default function AIInsightsPanel({ insights = [] }) {
           <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500/20 to-pink-500/20">
             <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400" />
           </div>
-          AI Insights
+          Insights de IA
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4">
         {insights.length === 0 ? (
           <div className="text-center py-8 text-gray-500 dark:text-gray-400">
             <Sparkles className="w-12 h-12 mx-auto mb-3 opacity-50" />
-            <p className="text-sm mb-2">No insights yet</p>
-            <p className="text-xs">AI will analyze your data and provide recommendations</p>
+            <p className="text-sm mb-2">Ainda não há insights</p>
+            <p className="text-xs">A IA vai analisar seus dados e sugerir recomendações</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -61,7 +62,7 @@ export default function AIInsightsPanel({ insights = [] }) {
                           {insight.title}
                         </h4>
                         <Badge variant="outline" className={priorityColors[insight.priority] || priorityColors.medium}>
-                          {insight.priority}
+                          {translatePriority(insight.priority)}
                         </Badge>
                       </div>
                       <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
@@ -89,7 +90,7 @@ export default function AIInsightsPanel({ insights = [] }) {
         
         <Link to={createPageUrl("Analytics")} className="block mt-4">
           <Button variant="outline" className="w-full dark:border-gray-700 dark:hover:bg-gray-800">
-            View All Insights
+            Ver todos os insights
           </Button>
         </Link>
       </CardContent>

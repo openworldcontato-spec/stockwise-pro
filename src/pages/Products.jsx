@@ -73,7 +73,7 @@ export default function Products() {
   };
 
   const handleDelete = (id) => {
-    if (confirm('Are you sure you want to delete this product?')) {
+    if (confirm('Tem certeza que deseja excluir este produto?')) {
       deleteMutation.mutate(id);
     }
   };
@@ -93,9 +93,9 @@ export default function Products() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Products</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Produtos</h1>
           <p className="text-gray-600 dark:text-gray-400 mt-1">
-            {filteredProducts.length} of {products.length} products
+            {filteredProducts.length} de {products.length} produtos
           </p>
         </div>
         <div className="flex gap-3 flex-wrap">
@@ -105,7 +105,7 @@ export default function Products() {
             className="gap-2 dark:border-gray-700 dark:hover:bg-gray-800"
           >
             <Upload className="w-4 h-4" />
-            Import/Export
+            Importar/Exportar
           </Button>
           <Button
             onClick={() => {
@@ -115,7 +115,7 @@ export default function Products() {
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-2"
           >
             <Plus className="w-4 h-4" />
-            Add Product
+            Adicionar produto
           </Button>
         </div>
       </div>
@@ -125,7 +125,7 @@ export default function Products() {
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <Input
-            placeholder="Search products by name or SKU..."
+            placeholder="Buscar produtos por nome ou SKU..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10 dark:bg-gray-900 dark:border-gray-800"
@@ -151,19 +151,19 @@ export default function Products() {
             <Search className="w-12 h-12 text-gray-400" />
           </div>
           <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-            No products found
+            Nenhum produto encontrado
           </h3>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
             {searchTerm || filters.category !== 'all' || filters.status !== 'all'
-              ? 'Try adjusting your filters'
-              : 'Start by adding your first product'}
+              ? 'Tente ajustar os filtros'
+              : 'Comece adicionando seu primeiro produto'}
           </p>
           <Button
             onClick={() => setShowForm(true)}
             className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
           >
             <Plus className="w-4 h-4 mr-2" />
-            Add Your First Product
+            Adicionar primeiro produto
           </Button>
         </div>
       ) : (
@@ -185,7 +185,7 @@ export default function Products() {
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle className="text-gray-900 dark:text-gray-100">
-              {editingProduct ? 'Edit Product' : 'Add New Product'}
+              {editingProduct ? 'Editar produto' : 'Adicionar novo produto'}
             </DialogTitle>
           </DialogHeader>
           <ProductForm
@@ -201,7 +201,7 @@ export default function Products() {
         </DialogContent>
       </Dialog>
 
-      {/* Import/Export Dialog */}
+      {/* Importar/Exportar Dialog */}
       <ImportExportDialog
         open={showImportExport}
         onClose={() => setShowImportExport(false)}

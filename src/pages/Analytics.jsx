@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart3, Download, TrendingUp, DollarSign, Package, Calendar } from "lucide-react";
 import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, subDays } from 'date-fns';
+import { format, eachDayOfInterval, subDays } from 'date-fns';
+import { formatCurrency, formatShortDate } from '@/lib/formatters';
 
 const COLORS = ['#3B82F6', '#8B5CF6', '#EC4899', '#F59E0B', '#10B981', '#6366F1'];
 
@@ -47,7 +48,7 @@ export default function Analytics() {
     const revenue = daySales.reduce((sum, sale) => sum + (sale.total_amount || 0), 0);
     
     return {
-      date: format(date, 'MMM d'),
+      date: formatShortDate(date),
       revenue: parseFloat(revenue.toFixed(2)),
       count: daySales.length
     };
@@ -99,7 +100,7 @@ export default function Analytics() {
 
   const exportData = () => {
     const csvContent = [
-      ['Date', 'Revenue', 'Orders'].join(','),
+      ['Data', 'Receita', 'Pedidos'].join(','),
       ...salesByDate.map(d => [d.date, d.revenue, d.count].join(','))
     ].join('\n');
 
@@ -107,7 +108,7 @@ export default function Analytics() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `analytics_${format(new Date(), 'yyyy-MM-dd')}.csv`;
+    a.download = `relatorio_${format(new Date(), 'yyyy-MM-dd')}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -116,8 +117,8 @@ export default function Analytics() {
     <div className="p-4 md:p-8 space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Analytics & Reports</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Last 30 days performance</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Análises e relatórios</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Desempenho dos últimos 30 dias</p>
         </div>
         <Button
           onClick={exportData}
@@ -125,11 +126,11 @@ export default function Analytics() {
           className="gap-2 dark:border-gray-700 dark:hover:bg-gray-800"
         >
           <Download className="w-4 h-4" />
-          Export Report
+          Exportar relatório
         </Button>
       </div>
 
-      {/* KPI Cards */}
+      {/* Cards de KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="border-gray-200 dark:border-gray-800 bg-gradient-to-br from-blue-500/10 to-blue-600/10 dark:from-blue-500/20 dark:to-blue-600/20">
           <CardContent className="p-6">
@@ -138,8 +139,8 @@ export default function Analytics() {
                 <DollarSign className="w-6 h-6 text-blue-600 dark:text-blue-400" />
               </div>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Revenue</p>
-            <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">${totalRevenue.toFixed(2)}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Receita total</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{formatCurrency(totalRevenue)}</p>
           </CardContent>
         </Card>
 
@@ -150,8 +151,8 @@ export default function Analytics() {
                 <TrendingUp className="w-6 h-6 text-green-600 dark:text-green-400" />
               </div>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Profit</p>
-            <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">${totalProfit.toFixed(2)}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Lucro total</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{formatCurrency(totalProfit)}</p>
           </CardContent>
         </Card>
 
@@ -162,19 +163,19 @@ export default function Analytics() {
                 <BarChart3 className="w-6 h-6 text-purple-600 dark:text-purple-400" />
               </div>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Avg Order Value</p>
-            <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">${avgOrderValue.toFixed(2)}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Ticket médio</p>
+            <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{formatCurrency(avgOrderValue)}</p>
           </CardContent>
         </Card>
       </div>
 
-      {/* Charts */}
+      {/* Gráficos */}
       <div className="grid lg:grid-cols-2 gap-6">
         <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
           <CardHeader className="border-b border-gray-200 dark:border-gray-800">
             <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
               <TrendingUp className="w-5 h-5" />
-              Sales Trend
+              Tendência de vendas
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
@@ -191,6 +192,8 @@ export default function Analytics() {
                   tick={{ fill: '#9CA3AF', fontSize: 12 }}
                 />
                 <Tooltip
+                  formatter={(value) => [formatCurrency(value), 'Receita']}
+                  labelFormatter={(label) => `Data: ${label}`}
                   contentStyle={{
                     backgroundColor: '#1F2937',
                     border: '1px solid #374151',
@@ -201,6 +204,7 @@ export default function Analytics() {
                 <Line 
                   type="monotone" 
                   dataKey="revenue" 
+                  name="Receita" 
                   stroke="#3B82F6" 
                   strokeWidth={3}
                   dot={{ fill: '#3B82F6', r: 4 }}
@@ -214,13 +218,13 @@ export default function Analytics() {
           <CardHeader className="border-b border-gray-200 dark:border-gray-800">
             <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
               <Package className="w-5 h-5" />
-              Sales by Category
+              Vendas por categoria
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             {salesByCategory.length === 0 ? (
               <div className="h-[300px] flex items-center justify-center text-gray-500 dark:text-gray-400">
-                No category data available
+                Nenhum dado de categoria disponível
               </div>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
@@ -240,6 +244,7 @@ export default function Analytics() {
                     ))}
                   </Pie>
                   <Tooltip
+                    formatter={(value) => [formatCurrency(value), 'Receita']}
                     contentStyle={{
                       backgroundColor: '#1F2937',
                       border: '1px solid #374151',
@@ -254,18 +259,18 @@ export default function Analytics() {
         </Card>
       </div>
 
-      {/* Top Products */}
+      {/* Produtos mais vendidos */}
       <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
         <CardHeader className="border-b border-gray-200 dark:border-gray-800">
           <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
             <BarChart3 className="w-5 h-5" />
-            Top Selling Products
+            Produtos mais vendidos
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
           {topProducts.length === 0 ? (
             <div className="h-[300px] flex items-center justify-center text-gray-500 dark:text-gray-400">
-              No product sales data yet
+              Ainda não há dados de vendas por produto
             </div>
           ) : (
             <ResponsiveContainer width="100%" height={400}>
@@ -284,6 +289,8 @@ export default function Analytics() {
                   tick={{ fill: '#9CA3AF', fontSize: 12 }}
                 />
                 <Tooltip
+                  formatter={(value) => [formatCurrency(value), 'Receita']}
+                  labelFormatter={(label) => `Produto: ${label}`}
                   contentStyle={{
                     backgroundColor: '#1F2937',
                     border: '1px solid #374151',
@@ -291,7 +298,7 @@ export default function Analytics() {
                     color: '#F3F4F6'
                   }}
                 />
-                <Bar dataKey="revenue" fill="url(#colorGradient)" radius={[0, 8, 8, 0]} />
+                <Bar dataKey="revenue" name="Receita" fill="url(#colorGradient)" radius={[0, 8, 8, 0]} />
                 <defs>
                   <linearGradient id="colorGradient" x1="0" y1="0" x2="1" y2="0">
                     <stop offset="0%" stopColor="#8B5CF6" stopOpacity={1} />

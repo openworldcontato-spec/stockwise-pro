@@ -8,12 +8,12 @@ import { Badge } from "@/components/ui/badge";
 import ReactMarkdown from 'react-markdown';
 
 const quickSuggestions = [
-  { label: "How to add a product?", icon: Package, category: "products" },
-  { label: "Process a sale", icon: ShoppingCart, category: "pos" },
-  { label: "View sales reports", icon: BarChart, category: "analytics" },
-  { label: "Manage low stock alerts", icon: Package, category: "inventory" },
-  { label: "Refund a transaction", icon: ShoppingCart, category: "sales" },
-  { label: "Export data to CSV", icon: BarChart, category: "data" },
+  { label: "Como adicionar um produto?", icon: Package, category: "products" },
+  { label: "Processar uma venda", icon: ShoppingCart, category: "pos" },
+  { label: "Ver relatórios de vendas", icon: BarChart, category: "analytics" },
+  { label: "Gerenciar alertas de estoque baixo", icon: Package, category: "inventory" },
+  { label: "Reembolsar uma transação", icon: ShoppingCart, category: "sales" },
+  { label: "Exportar dados para CSV", icon: BarChart, category: "data" },
 ];
 
 export default function Help() {
@@ -43,8 +43,8 @@ export default function Help() {
       const conv = await base44.agents.createConversation({
         agent_name: "inventory_assistant",
         metadata: {
-          name: "Help Chat",
-          description: "AI Assistant for Inventory Management"
+          name: "Chat de ajuda",
+          description: "Assistente de IA para gestão de estoque"
         }
       });
       setConversation(conv);
@@ -55,7 +55,7 @@ export default function Help() {
         setSending(false);
       });
     } catch (error) {
-      console.error("Error initializing conversation:", error);
+      console.error("Erro ao iniciar conversa:", error);
       setSending(false);
     }
   };
@@ -71,7 +71,7 @@ export default function Help() {
       });
       setInput('');
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error("Erro ao enviar mensagem:", error);
       setSending(false);
     }
   };
@@ -83,9 +83,9 @@ export default function Help() {
   return (
     <div className="p-4 md:p-8 h-[calc(100vh-5rem)] flex flex-col">
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Help & Support</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Ajuda e suporte</h1>
         <p className="text-gray-600 dark:text-gray-400">
-          Get instant help from our AI assistant
+          Receba ajuda instantânea do assistente de IA
         </p>
       </div>
 
@@ -95,7 +95,7 @@ export default function Help() {
           <CardHeader className="border-b border-gray-200 dark:border-gray-800">
             <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
               <Sparkles className="w-5 h-5" />
-              Quick Help
+              Ajuda rápida
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4">
@@ -126,9 +126,9 @@ export default function Help() {
               <div className="flex items-start gap-3">
                 <HelpCircle className="w-5 h-5 text-purple-600 dark:text-purple-400 mt-0.5" />
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Need more help?</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Precisa de mais ajuda?</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    Type your question in the chat or explore our tutorial section
+                    Digite sua pergunta no chat ou explore a seção de tutoriais
                   </p>
                 </div>
               </div>
@@ -141,9 +141,9 @@ export default function Help() {
           <CardHeader className="border-b border-gray-200 dark:border-gray-800">
             <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
               <Bot className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-              AI Assistant
+              Assistente de IA
               <Badge variant="outline" className="ml-auto bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400">
-                {conversation ? 'Online' : 'Connecting...'}
+                {conversation ? 'Online' : 'Conectando...'}
               </Badge>
             </CardTitle>
           </CardHeader>
@@ -157,10 +157,10 @@ export default function Help() {
                     <MessageCircle className="w-8 h-8 text-white" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                    Welcome to Help Center
+                    Bem-vindo à Central de Ajuda
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-                    Ask me anything about managing your inventory, processing sales, or using the system features
+                    Pergunte qualquer coisa sobre estoque, vendas ou uso dos recursos do sistema
                   </p>
                 </div>
               ) : (
@@ -226,7 +226,7 @@ export default function Help() {
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Type your question..."
+                  placeholder="Digite sua pergunta..."
                   disabled={sending || !conversation}
                   className="flex-1 dark:bg-gray-800 dark:border-gray-700"
                 />

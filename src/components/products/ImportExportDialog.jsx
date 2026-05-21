@@ -14,7 +14,7 @@ export default function ImportExportDialog({ open, onClose, products }) {
 
   const handleExport = () => {
     const csvContent = [
-      ['SKU', 'Name', 'Description', 'Cost Price', 'Sell Price', 'Stock Quantity', 'Reorder Level', 'Barcode'].join(','),
+      ['SKU', 'Nome', 'Descrição', 'Preço de custo', 'Preço de venda', 'Qtd. estoque', 'Nível de reposição', 'Código de barras'].join(','),
       ...products.map(p => [
         p.sku,
         `"${p.name}"`,
@@ -31,7 +31,7 @@ export default function ImportExportDialog({ open, onClose, products }) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `products_${new Date().toISOString().split('T')[0]}.csv`;
+    a.download = `produtos_${new Date().toISOString().split('T')[0]}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -52,14 +52,14 @@ export default function ImportExportDialog({ open, onClose, products }) {
       if (result.status === 'success' && result.output) {
         const products = Array.isArray(result.output) ? result.output : [result.output];
         await base44.entities.Product.bulkCreate(products);
-        alert(`Successfully imported ${products.length} products`);
+        alert(`${products.length} produto(s) importado(s) com sucesso`);
         onClose();
         window.location.reload();
       } else {
-        alert('Error importing products: ' + result.details);
+        alert('Erro ao importar produtos:  ' + result.details);
       }
     } catch (error) {
-      alert('Error importing products. Please check the file format.');
+      alert('Erro ao importar produtos. Confira o formato do arquivo.');
     }
     setImporting(false);
   };
@@ -68,27 +68,27 @@ export default function ImportExportDialog({ open, onClose, products }) {
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent className="dark:bg-gray-900 dark:border-gray-800">
         <DialogHeader>
-          <DialogTitle className="text-gray-900 dark:text-gray-100">Import / Export Products</DialogTitle>
+          <DialogTitle className="text-gray-900 dark:text-gray-100">Importar / Exportar produtos</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4 py-4">
           <div className="p-4 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg hover:border-blue-500 dark:hover:border-blue-500 transition-colors">
             <FileText className="w-12 h-12 mx-auto mb-3 text-gray-400" />
-            <h3 className="font-semibold text-center mb-2 text-gray-900 dark:text-gray-100">Export Products</h3>
+            <h3 className="font-semibold text-center mb-2 text-gray-900 dark:text-gray-100">Exportar produtos</h3>
             <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-4">
-              Download all products as CSV
+              Baixe todos os produtos em CSV
             </p>
             <Button onClick={handleExport} variant="outline" className="w-full dark:border-gray-700">
               <Download className="w-4 h-4 mr-2" />
-              Export to CSV
+              Exportar para CSV
             </Button>
           </div>
 
           <div className="p-4 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg hover:border-blue-500 dark:hover:border-blue-500 transition-colors">
             <Upload className="w-12 h-12 mx-auto mb-3 text-gray-400" />
-            <h3 className="font-semibold text-center mb-2 text-gray-900 dark:text-gray-100">Import Products</h3>
+            <h3 className="font-semibold text-center mb-2 text-gray-900 dark:text-gray-100">Importar produtos</h3>
             <p className="text-sm text-gray-600 dark:text-gray-400 text-center mb-4">
-              Upload CSV file to import products
+              Envie um arquivo CSV para importar produtos
             </p>
             <label>
               <input
@@ -100,7 +100,7 @@ export default function ImportExportDialog({ open, onClose, products }) {
               />
               <Button variant="outline" className="w-full dark:border-gray-700" disabled={importing}>
                 <Upload className="w-4 h-4 mr-2" />
-                {importing ? 'Importing...' : 'Import from CSV'}
+                {importing ? 'Importando...' : 'Importar de CSV'}
               </Button>
             </label>
           </div>

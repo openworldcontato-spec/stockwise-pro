@@ -68,7 +68,7 @@ export default function ProductForm({ product, categories, onSubmit, onCancel, i
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="sku">SKU (Stock Keeping Unit) *</Label>
+            <Label htmlFor="sku">SKU (Código interno do produto) *</Label>
             <Input
               id="sku"
               value={formData.sku}
@@ -77,10 +77,10 @@ export default function ProductForm({ product, categories, onSubmit, onCancel, i
               required
               className="dark:bg-gray-800 dark:border-gray-700"
             />
-            <p className="text-xs text-gray-500 dark:text-gray-400">Unique identifier for this product</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">Identificador único deste produto</p>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="barcode">Barcode</Label>
+            <Label htmlFor="barcode">Código de barras</Label>
             <Input
               id="barcode"
               value={formData.barcode}
@@ -92,35 +92,35 @@ export default function ProductForm({ product, categories, onSubmit, onCancel, i
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="name">Product Name *</Label>
+          <Label htmlFor="name">Nome do produto *</Label>
           <Input
             id="name"
             value={formData.name}
             onChange={(e) => handleChange('name', e.target.value)}
-            placeholder="Enter product name"
+            placeholder="Digite o nome do produto"
             required
             className="dark:bg-gray-800 dark:border-gray-700"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="description">Description</Label>
+          <Label htmlFor="description">Descrição</Label>
           <Textarea
             id="description"
             value={formData.description}
             onChange={(e) => handleChange('description', e.target.value)}
-            placeholder="Product description..."
+            placeholder="Descrição do produto..."
             className="h-24 dark:bg-gray-800 dark:border-gray-700"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="category">Category</Label>
+            <Label htmlFor="category">Categoria</Label>
             <div className="flex gap-2">
               <Select value={formData.category_id} onValueChange={(value) => handleChange('category_id', value)}>
                 <SelectTrigger className="dark:bg-gray-800 dark:border-gray-700">
-                  <SelectValue placeholder="Select category" />
+                  <SelectValue placeholder="Selecionar categoria" />
                 </SelectTrigger>
                 <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                   {categories.map((cat) => (
@@ -148,9 +148,9 @@ export default function ProductForm({ product, categories, onSubmit, onCancel, i
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="discontinued">Discontinued</SelectItem>
-                <SelectItem value="out_of_stock">Out of Stock</SelectItem>
+                <SelectItem value="active">Ativo</SelectItem>
+                <SelectItem value="discontinued">Descontinuado</SelectItem>
+                <SelectItem value="out_of_stock">Sem estoque</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -158,7 +158,7 @@ export default function ProductForm({ product, categories, onSubmit, onCancel, i
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="cost_price">Cost Price *</Label>
+            <Label htmlFor="cost_price">Preço de custo *</Label>
             <Input
               id="cost_price"
               type="number"
@@ -171,7 +171,7 @@ export default function ProductForm({ product, categories, onSubmit, onCancel, i
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="sell_price">Sell Price *</Label>
+            <Label htmlFor="sell_price">Preço de venda *</Label>
             <Input
               id="sell_price"
               type="number"
@@ -187,7 +187,7 @@ export default function ProductForm({ product, categories, onSubmit, onCancel, i
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="stock_quantity">Stock Quantity *</Label>
+            <Label htmlFor="stock_quantity">Quantidade em estoque *</Label>
             <Input
               id="stock_quantity"
               type="number"
@@ -199,7 +199,7 @@ export default function ProductForm({ product, categories, onSubmit, onCancel, i
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="reorder_level">Reorder Level</Label>
+            <Label htmlFor="reorder_level">Nível de reposição</Label>
             <Input
               id="reorder_level"
               type="number"
@@ -212,7 +212,7 @@ export default function ProductForm({ product, categories, onSubmit, onCancel, i
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="image_url">Image URL</Label>
+          <Label htmlFor="image_url">URL da imagem</Label>
           <Input
             id="image_url"
             value={formData.image_url}
@@ -224,41 +224,40 @@ export default function ProductForm({ product, categories, onSubmit, onCancel, i
 
         <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-800">
           <Button type="button" variant="outline" onClick={onCancel} className="dark:border-gray-700">
-            Cancel
+            Cancelar
           </Button>
           <Button type="submit" disabled={isLoading} className="bg-gradient-to-r from-blue-600 to-purple-600">
-            {isLoading ? 'Saving...' : product ? 'Update Product' : 'Create Product'}
+            {isLoading ? 'Salvando...' : product ? 'Atualizar produto' : 'Criar produto'}
           </Button>
         </div>
       </form>
 
-      {/* New Category Dialog */}
       <Dialog open={showNewCategory} onOpenChange={setShowNewCategory}>
         <DialogContent className="dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
-            <DialogTitle className="text-gray-900 dark:text-gray-100">Add New Category</DialogTitle>
+            <DialogTitle className="text-gray-900 dark:text-gray-100">Adicionar nova categoria</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="new_category">Category Name</Label>
+              <Label htmlFor="new_category">Nome da categoria</Label>
               <Input
                 id="new_category"
                 value={newCategoryName}
                 onChange={(e) => setNewCategoryName(e.target.value)}
-                placeholder="Enter category name"
+                placeholder="Digite o nome da categoria"
                 className="dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
             <div className="flex justify-end gap-3">
               <Button variant="outline" onClick={() => setShowNewCategory(false)} className="dark:border-gray-700">
-                Cancel
+                Cancelar
               </Button>
               <Button 
                 onClick={handleCreateCategory}
                 disabled={!newCategoryName.trim() || createCategoryMutation.isPending}
                 className="bg-gradient-to-r from-blue-600 to-purple-600"
               >
-                {createCategoryMutation.isPending ? 'Creating...' : 'Create Category'}
+                {createCategoryMutation.isPending ? 'Criando...' : 'Criar categoria'}
               </Button>
             </div>
           </div>

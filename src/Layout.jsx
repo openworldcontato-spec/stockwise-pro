@@ -42,19 +42,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const navigationItems = [
-  { title: "Dashboard", url: createPageUrl("Dashboard"), icon: LayoutDashboard },
-  { title: "Products", url: createPageUrl("Products"), icon: Package },
-  { title: "POS", url: createPageUrl("POS"), icon: ShoppingCart },
-  { title: "Sales", url: createPageUrl("Sales"), icon: Receipt },
-  { title: "Customers", url: createPageUrl("Customers"), icon: Users },
-  { title: "Analytics", url: createPageUrl("Analytics"), icon: BarChart3 },
+  { title: "Painel", url: createPageUrl("Dashboard"), icon: LayoutDashboard },
+  { title: "Produtos", url: createPageUrl("Products"), icon: Package },
+  { title: "PDV", url: createPageUrl("POS"), icon: ShoppingCart },
+  { title: "Vendas", url: createPageUrl("Sales"), icon: Receipt },
+  { title: "Clientes", url: createPageUrl("Customers"), icon: Users },
+  { title: "Relatórios", url: createPageUrl("Analytics"), icon: BarChart3 },
 ];
 
 const secondaryItems = [
-  { title: "Tutorial", url: createPageUrl("Tutorial"), icon: BookOpen },
-  { title: "Help", url: createPageUrl("Help"), icon: HelpCircle },
-  { title: "About", url: createPageUrl("About"), icon: Info },
-  { title: "Settings", url: createPageUrl("Settings"), icon: Settings },
+  { title: "Tutoriais", url: createPageUrl("Tutorial"), icon: BookOpen },
+  { title: "Ajuda", url: createPageUrl("Help"), icon: HelpCircle },
+  { title: "Sobre", url: createPageUrl("About"), icon: Info },
+  { title: "Configurações", url: createPageUrl("Settings"), icon: Settings },
 ];
 
 export default function Layout({ children, currentPageName }) {
@@ -86,7 +86,7 @@ export default function Layout({ children, currentPageName }) {
     document.documentElement.classList.toggle('dark');
   };
 
-  const handleLogout = async () => {
+  const handleSair = async () => {
     await base44.auth.logout();
   };
 
@@ -124,8 +124,8 @@ export default function Layout({ children, currentPageName }) {
                 <Package className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h2 className="font-bold text-gray-900 dark:text-gray-100">InvenTrack</h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400">POS & Inventory</p>
+                <h2 className="font-bold text-gray-900 dark:text-gray-100">StockWise PRO</h2>
+                <p className="text-xs text-gray-500 dark:text-gray-400">PDV e Estoque</p>
               </div>
             </div>
           </SidebarHeader>
@@ -133,7 +133,7 @@ export default function Layout({ children, currentPageName }) {
           <SidebarContent className="p-2">
             <SidebarGroup>
               <SidebarGroupLabel className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider px-2 py-2">
-                Main Menu
+                Menu principal
               </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
@@ -158,7 +158,7 @@ export default function Layout({ children, currentPageName }) {
 
             <SidebarGroup>
               <SidebarGroupLabel className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider px-2 py-2">
-                Resources
+                Recursos
               </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
@@ -190,7 +190,7 @@ export default function Layout({ children, currentPageName }) {
               className="w-full justify-start gap-2 dark:border-gray-700 dark:hover:bg-gray-800"
             >
               {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-              <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+              <span>{isDark ? 'Modo claro' : 'Modo escuro'}</span>
             </Button>
 
             {user && (
@@ -201,16 +201,16 @@ export default function Layout({ children, currentPageName }) {
                       <span className="text-white font-medium text-sm">{user.full_name?.[0] || 'U'}</span>
                     </div>
                     <div className="flex-1 min-w-0 text-left">
-                      <p className="font-medium text-gray-900 dark:text-gray-100 text-sm truncate">{user.full_name || 'User'}</p>
+                      <p className="font-medium text-gray-900 dark:text-gray-100 text-sm truncate">{user.full_name || 'Usuário'}</p>
                       <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user.email}</p>
                     </div>
                     <ChevronRight className="w-4 h-4 text-gray-400" />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48 dark:bg-gray-900 dark:border-gray-800">
-                  <DropdownMenuItem onClick={handleLogout} className="cursor-pointer dark:hover:bg-gray-800">
+                  <DropdownMenuItem onClick={handleSair} className="cursor-pointer dark:hover:bg-gray-800">
                     <LogOut className="w-4 h-4 mr-2" />
-                    Logout
+                    Sair
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -224,7 +224,7 @@ export default function Layout({ children, currentPageName }) {
               <SidebarTrigger className="hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-colors duration-200">
                 <Menu className="w-5 h-5" />
               </SidebarTrigger>
-              <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">InvenTrack</h1>
+              <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">StockWise PRO</h1>
             </div>
           </header>
 

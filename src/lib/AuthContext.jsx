@@ -54,12 +54,12 @@ export const AuthProvider = ({ children }) => {
           if (reason === 'auth_required') {
             setAuthError({
               type: 'auth_required',
-              message: 'Authentication required'
+              message: 'Autenticação obrigatória'
             });
           } else if (reason === 'user_not_registered') {
             setAuthError({
               type: 'user_not_registered',
-              message: 'User not registered for this app'
+              message: 'Usuário não cadastrado neste app'
             });
           } else {
             setAuthError({
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }) => {
         } else {
           setAuthError({
             type: 'unknown',
-            message: appError.message || 'Failed to load app'
+            message: appError.message || 'Falha ao carregar o app'
           });
         }
         setIsLoadingPublicSettings(false);
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
       console.error('Unexpected error:', error);
       setAuthError({
         type: 'unknown',
-        message: error.message || 'An unexpected error occurred'
+        message: error.message || 'Ocorreu um erro inesperado'
       });
       setIsLoadingPublicSettings(false);
       setIsLoadingAuth(false);
@@ -104,7 +104,7 @@ export const AuthProvider = ({ children }) => {
       if (error.status === 401 || error.status === 403) {
         setAuthError({
           type: 'auth_required',
-          message: 'Authentication required'
+          message: 'Autenticação obrigatória'
         });
       }
     }
@@ -148,7 +148,7 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error('useAuth deve ser usado dentro de AuthProvider');
   }
   return context;
 };

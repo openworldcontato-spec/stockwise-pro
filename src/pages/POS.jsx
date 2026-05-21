@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, ShoppingCart, Trash2, Plus, Minus, CreditCard, Banknote, Smartphone, Check } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -21,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { createPageUrl } from "@/utils";
+import { formatCurrency } from "@/lib/formatters";
 
 export default function POS() {
   const queryClient = useQueryClient();
@@ -29,7 +29,7 @@ export default function POS() {
   const [cart, setCart] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [discount, setDiscount] = useState(0);
-  const [taxRate, setTaxRate] = useState(10); // 10% tax
+  const [taxRate] = useState(0);
   const [showCheckout, setShowCheckout] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('cash');
 
@@ -47,18 +47,15 @@ export default function POS() {
     mutationFn: async (saleData) => {
       const sale = await base44.entities.Sale.create(saleData.sale);
       
-      // Create sale items
       for (const item of saleData.items) {
         await base44.entities.SaleItem.create({ ...item, sale_id: sale.id });
         
-        // Update product stock
         const product = products.find(p => p.id === item.product_id);
         if (product) {
           await base44.entities.Product.update(product.id, {
             stock_quantity: product.stock_quantity - item.quantity
           });
           
-          // Create stock adjustment record
           await base44.entities.StockAdjustment.create({
             product_id: product.id,
             product_name: product.name,
@@ -66,13 +63,12 @@ export default function POS() {
             quantity_change: -item.quantity,
             previous_quantity: product.stock_quantity,
             new_quantity: product.stock_quantity - item.quantity,
-            reason: `Sale #${saleData.sale.sale_number}`,
+            reason: `Venda #${saleData.sale.sale_number}`,
             reference_id: sale.id
           });
         }
       }
       
-      // Update customer stats if applicable
       if (selectedCustomer) {
         await base44.entities.Customer.update(selectedCustomer.id, {
           total_purchases: (selectedCustomer.total_purchases || 0) + saleData.sale.total_amount,
@@ -137,13 +133,13 @@ export default function POS() {
   const total = subtotal - discountAmount + taxAmount;
 
   const handleCheckout = () => {
-    const saleNumber = `SALE-${Date.now()}`;
+    const saleNumber = `VENDA-${Date.now()}`;
     
     const saleData = {
       sale: {
         sale_number: saleNumber,
         customer_id: selectedCustomer?.id,
-        customer_name: selectedCustomer?.name || 'Walk-in',
+        customer_name: selectedCustomer?.name || 'Cliente avulso',
         subtotal,
         tax_amount: taxAmount,
         discount_amount: discountAmount,
@@ -174,14 +170,13 @@ export default function POS() {
 
   return (
     <div className="p-4 md:p-8 h-[calc(100vh-5rem)] flex flex-col lg:flex-row gap-6">
-      {/* Products Section */}
       <div className="flex-1 flex flex-col overflow-hidden">
         <div className="mb-4">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Point of Sale</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">PDV - Ponto de Venda</h1>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <Input
-              placeholder="Search products by name, SKU, or barcode..."
+              placeholder="Buscar produtos por nome, SKU ou código de barras..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 dark:bg-gray-900 dark:border-gray-800"
@@ -209,10 +204,10 @@ export default function POS() {
                     {product.name}
                   </h3>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
-                    Stock: {product.stock_quantity}
+                    Estoque: {product.stock_quantity}
                   </p>
                   <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
-                    ${product.sell_price?.toFixed(2)}
+                    {formatCurrency(product.sell_price)}
                   </p>
                 </CardContent>
               </Card>
@@ -221,24 +216,26 @@ export default function POS() {
         </div>
       </div>
 
-      {/* Cart Section */}
       <div className="w-full lg:w-96 flex flex-col">
         <Card className="flex-1 flex flex-col border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
           <CardHeader className="border-b border-gray-200 dark:border-gray-800">
             <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
               <ShoppingCart className="w-5 h-5" />
-              Cart ({cart.length})
+              Carrinho ({cart.length})
             </CardTitle>
           </CardHeader>
           
           <CardContent className="flex-1 flex flex-col p-4 overflow-hidden">
             <div className="mb-4">
-              <Select value={selectedCustomer?.id || ''} onValueChange={(id) => setSelectedCustomer(customers.find(c => c.id === id))}>
+              <Select
+                value={selectedCustomer?.id || 'walk-in'}
+                onValueChange={(id) => setSelectedCustomer(id === 'walk-in' ? null : customers.find(c => c.id === id) || null)}
+              >
                 <SelectTrigger className="dark:bg-gray-800 dark:border-gray-700">
-                  <SelectValue placeholder="Select customer (optional)" />
+                  <SelectValue placeholder="Selecionar cliente (opcional)" />
                 </SelectTrigger>
                 <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
-                  <SelectItem value={null}>Walk-in Customer</SelectItem>
+                  <SelectItem value="walk-in">Cliente avulso</SelectItem>
                   {customers.map((customer) => (
                     <SelectItem key={customer.id} value={customer.id}>
                       {customer.name}
@@ -252,8 +249,8 @@ export default function POS() {
               {cart.length === 0 ? (
                 <div className="text-center py-12 text-gray-500 dark:text-gray-400">
                   <ShoppingCart className="w-16 h-16 mx-auto mb-3 opacity-50" />
-                  <p>Cart is empty</p>
-                  <p className="text-sm mt-1">Add products to start</p>
+                  <p>Carrinho vazio</p>
+                  <p className="text-sm mt-1">Adicione produtos para começar</p>
                 </div>
               ) : (
                 cart.map((item) => (
@@ -264,7 +261,7 @@ export default function POS() {
                           {item.product.name}
                         </h4>
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          ${item.product.sell_price?.toFixed(2)} each
+                          {formatCurrency(item.product.sell_price)} cada
                         </p>
                       </div>
                       <Button
@@ -300,7 +297,7 @@ export default function POS() {
                         </Button>
                       </div>
                       <p className="font-bold text-gray-900 dark:text-gray-100">
-                        ${(item.product.sell_price * item.quantity).toFixed(2)}
+                        {formatCurrency(item.product.sell_price * item.quantity)}
                       </p>
                     </div>
                   </div>
@@ -313,21 +310,21 @@ export default function POS() {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
-                    <span className="font-medium text-gray-900 dark:text-gray-100">${subtotal.toFixed(2)}</span>
+                    <span className="font-medium text-gray-900 dark:text-gray-100">{formatCurrency(subtotal)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600 dark:text-gray-400">Tax ({taxRate}%)</span>
-                    <span className="font-medium text-gray-900 dark:text-gray-100">${taxAmount.toFixed(2)}</span>
+                    <span className="text-gray-600 dark:text-gray-400">Imposto ({taxRate}%)</span>
+                    <span className="font-medium text-gray-900 dark:text-gray-100">{formatCurrency(taxAmount)}</span>
                   </div>
                   {discount > 0 && (
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">Discount ({discount}%)</span>
-                      <span className="font-medium text-red-600 dark:text-red-400">-${discountAmount.toFixed(2)}</span>
+                      <span className="text-gray-600 dark:text-gray-400">Desconto ({discount}%)</span>
+                      <span className="font-medium text-red-600 dark:text-red-400">-{formatCurrency(discountAmount)}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-lg font-bold pt-2 border-t border-gray-200 dark:border-gray-800">
                     <span className="text-gray-900 dark:text-gray-100">Total</span>
-                    <span className="text-blue-600 dark:text-blue-400">${total.toFixed(2)}</span>
+                    <span className="text-blue-600 dark:text-blue-400">{formatCurrency(total)}</span>
                   </div>
                 </div>
 
@@ -336,7 +333,7 @@ export default function POS() {
                   className="w-full h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-lg font-semibold"
                 >
                   <CreditCard className="w-5 h-5 mr-2" />
-                  Checkout
+                  Finalizar venda
                 </Button>
               </div>
             )}
@@ -344,21 +341,20 @@ export default function POS() {
         </Card>
       </div>
 
-      {/* Checkout Dialog */}
       <Dialog open={showCheckout} onOpenChange={setShowCheckout}>
         <DialogContent className="dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
-            <DialogTitle className="text-gray-900 dark:text-gray-100">Complete Payment</DialogTitle>
+            <DialogTitle className="text-gray-900 dark:text-gray-100">Concluir pagamento</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-4 py-4">
             <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
-              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Total Amount</p>
-              <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">${total.toFixed(2)}</p>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">Valor total</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">{formatCurrency(total)}</p>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-900 dark:text-gray-100">Payment Method</label>
+              <label className="text-sm font-medium text-gray-900 dark:text-gray-100">Forma de pagamento</label>
               <div className="grid grid-cols-3 gap-3">
                 <Button
                   variant={paymentMethod === 'cash' ? 'default' : 'outline'}
@@ -366,7 +362,7 @@ export default function POS() {
                   className="flex-col h-20 dark:border-gray-700"
                 >
                   <Banknote className="w-6 h-6 mb-1" />
-                  <span className="text-xs">Cash</span>
+                  <span className="text-xs">Dinheiro</span>
                 </Button>
                 <Button
                   variant={paymentMethod === 'card' ? 'default' : 'outline'}
@@ -374,7 +370,7 @@ export default function POS() {
                   className="flex-col h-20 dark:border-gray-700"
                 >
                   <CreditCard className="w-6 h-6 mb-1" />
-                  <span className="text-xs">Card</span>
+                  <span className="text-xs">Cartão</span>
                 </Button>
                 <Button
                   variant={paymentMethod === 'mobile' ? 'default' : 'outline'}
@@ -382,13 +378,13 @@ export default function POS() {
                   className="flex-col h-20 dark:border-gray-700"
                 >
                   <Smartphone className="w-6 h-6 mb-1" />
-                  <span className="text-xs">Mobile</span>
+                  <span className="text-xs">Pix</span>
                 </Button>
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-900 dark:text-gray-100">Discount %</label>
+              <label className="text-sm font-medium text-gray-900 dark:text-gray-100">Desconto %</label>
               <Input
                 type="number"
                 min="0"
@@ -405,7 +401,7 @@ export default function POS() {
               className="w-full h-12 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
             >
               <Check className="w-5 h-5 mr-2" />
-              {createSaleMutation.isPending ? 'Processing...' : 'Complete Sale'}
+              {createSaleMutation.isPending ? 'Processando...' : 'Concluir venda'}
             </Button>
           </div>
         </DialogContent>

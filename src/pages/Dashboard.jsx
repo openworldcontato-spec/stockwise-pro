@@ -17,7 +17,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
+import { formatCurrency } from "@/lib/formatters";
 
 import StatsCard from "../components/dashboard/StatsCard";
 import RecentSalesTable from "../components/dashboard/RecentSalesTable";
@@ -72,20 +72,20 @@ export default function Dashboard() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Dashboard</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Welcome back! Here's your business overview</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Painel</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">Bem-vindo de volta! Aqui está o resumo do seu negócio</p>
         </div>
         <div className="flex gap-3">
           <Link to={createPageUrl("POS")}>
             <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-2">
               <ShoppingCart className="w-4 h-4" />
-              New Sale
+              Nova venda
             </Button>
           </Link>
           <Link to={createPageUrl("Products")}>
             <Button variant="outline" className="gap-2 dark:border-gray-700 dark:hover:bg-gray-800">
               <Plus className="w-4 h-4" />
-              Add Product
+              Adicionar produto
             </Button>
           </Link>
         </div>
@@ -94,30 +94,30 @@ export default function Dashboard() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatsCard
-          title="Today's Revenue"
-          value={`$${todayRevenue.toFixed(2)}`}
+          title="Receita de hoje"
+          value={formatCurrency(todayRevenue)}
           change={revenueChange}
           icon={DollarSign}
           color="blue"
         />
         <StatsCard
-          title="Today's Sales"
+          title="Vendas de hoje"
           value={todaySales.length}
           change={salesChange}
           icon={ShoppingCart}
           color="green"
         />
         <StatsCard
-          title="Total Products"
+          title="Total de produtos"
           value={totalProducts}
-          subtitle={`${products.filter(p => p.stock_quantity > 0).length} in stock`}
+          subtitle={`${products.filter(p => p.stock_quantity > 0).length} em estoque`}
           icon={Package}
           color="purple"
         />
         <StatsCard
-          title="Low Stock Alerts"
+          title="Alertas de estoque baixo"
           value={lowStockProducts}
-          subtitle="Needs attention"
+          subtitle="Precisa de atenção"
           icon={AlertTriangle}
           color="orange"
           alert={lowStockProducts > 0}

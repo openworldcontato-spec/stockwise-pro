@@ -12,14 +12,14 @@ export default function LowStockAlerts({ products = [] }) {
       <CardHeader className="border-b border-gray-200 dark:border-gray-800">
         <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
           <AlertTriangle className="w-5 h-5 text-orange-500" />
-          Low Stock Alerts
+          Alertas de estoque baixo
         </CardTitle>
       </CardHeader>
       <CardContent className="p-4">
         {products.length === 0 ? (
           <div className="text-center py-8 text-gray-500 dark:text-gray-400">
             <Package className="w-12 h-12 mx-auto mb-3 opacity-50" />
-            <p className="text-sm">All products well stocked!</p>
+            <p className="text-sm">Todos os produtos estão bem abastecidos!</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -38,16 +38,16 @@ export default function LowStockAlerts({ products = [] }) {
                     </p>
                   </div>
                   <Badge variant="outline" className="bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-400 border-orange-300 dark:border-orange-700 whitespace-nowrap">
-                    {product.stock_quantity} left
+                    {product.stock_quantity} restantes
                   </Badge>
                 </div>
                 <div className="mt-3 flex items-center justify-between text-xs">
                   <span className="text-gray-500 dark:text-gray-400">
-                    Reorder at: {product.reorder_level || 5}
+                    Repor ao chegar em: {product.reorder_level || 5}
                   </span>
                   <Link to={createPageUrl("Products")}>
                     <Button size="sm" variant="outline" className="h-7 text-xs dark:border-gray-700 dark:hover:bg-gray-800">
-                      Restock
+                      Repor
                     </Button>
                   </Link>
                 </div>

@@ -33,14 +33,14 @@ export default function TopProductsChart({ products = [], saleItems = [] }) {
       <CardHeader className="border-b border-gray-200 dark:border-gray-800">
         <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
           <TrendingUp className="w-5 h-5" />
-          Top Selling Products
+          Produtos mais vendidos
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6">
         {topProducts.length === 0 ? (
           <div className="text-center py-12 text-gray-500 dark:text-gray-400">
             <Package className="w-12 h-12 mx-auto mb-3 opacity-50" />
-            <p>No sales data yet</p>
+            <p>Ainda não há dados de vendas</p>
           </div>
         ) : (
           <ResponsiveContainer width="100%" height={300}>
@@ -56,6 +56,8 @@ export default function TopProductsChart({ products = [], saleItems = [] }) {
                 tick={{ fill: '#9CA3AF', fontSize: 12 }}
               />
               <Tooltip
+                formatter={(value) => [value, 'Quantidade']}
+                labelFormatter={(label) => `Produto: ${label}`}
                 contentStyle={{
                   backgroundColor: '#1F2937',
                   border: '1px solid #374151',
@@ -65,6 +67,7 @@ export default function TopProductsChart({ products = [], saleItems = [] }) {
               />
               <Bar 
                 dataKey="quantity" 
+                name="Quantidade"
                 fill="url(#colorGradient)" 
                 radius={[8, 8, 0, 0]}
               />

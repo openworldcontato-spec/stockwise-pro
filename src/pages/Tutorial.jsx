@@ -19,157 +19,157 @@ import { Button } from "@/components/ui/button";
 const tutorials = [
   {
     id: 1,
-    title: "Getting Started",
+    title: "Primeiros passos",
     category: "basics",
     icon: BookOpen,
     duration: "5 min",
-    difficulty: "Beginner",
+    difficulty: "Iniciante",
     steps: [
-      "Navigate to Dashboard to see overview",
-      "Check the stats cards for quick insights",
-      "Review low stock alerts and AI recommendations",
-      "Explore the sidebar menu to access all features"
+      "Acesse o Painel para ver o resumo",
+      "Confira os cards de métricas para insights rápidos",
+      "Revise alertas de estoque baixo e recomendações de IA",
+      "Explore o menu lateral para acessar todos os recursos"
     ]
   },
   {
     id: 2,
-    title: "Adding Products",
+    title: "Adicionando produtos",
     category: "products",
     icon: Package,
     duration: "3 min",
-    difficulty: "Beginner",
+    difficulty: "Iniciante",
     steps: [
-      "Go to Products page from sidebar",
-      "Click 'Add Product' button",
-      "Fill in required fields: SKU, Name, Price, Stock",
-      "Optionally add category, barcode, and image",
-      "Click 'Create Product' to save"
+      "Acesse Produtos pelo menu lateral",
+      "Clique no botão 'Adicionar produto'",
+      "Preencha os campos obrigatórios: SKU, nome, preço e estoque",
+      "Opcionalmente, adicione categoria, código de barras e imagem",
+      "Clique em 'Criar produto' para salvar"
     ]
   },
   {
     id: 3,
-    title: "Processing Sales",
+    title: "Processando vendas",
     category: "pos",
     icon: ShoppingCart,
     duration: "4 min",
-    difficulty: "Beginner",
+    difficulty: "Iniciante",
     steps: [
-      "Navigate to POS page",
-      "Search for products or browse the catalog",
-      "Click products to add them to cart",
-      "Adjust quantities using +/- buttons",
-      "Select customer (optional)",
-      "Click 'Checkout' and choose payment method",
-      "Complete the sale"
+      "Acesse a página PDV",
+      "Busque produtos ou navegue pelo catálogo",
+      "Clique nos produtos para adicionar ao carrinho",
+      "Ajuste as quantidades usando os botões +/-",
+      "Selecione o cliente (opcional)",
+      "Clique em 'Finalizar venda' e escolha a forma de pagamento",
+      "Conclua a venda"
     ]
   },
   {
     id: 4,
-    title: "Managing Customers",
+    title: "Gerenciando clientes",
     category: "customers",
     icon: Users,
     duration: "3 min",
-    difficulty: "Beginner",
+    difficulty: "Iniciante",
     steps: [
-      "Go to Customers page",
-      "Click 'Add Customer'",
-      "Enter customer name (required)",
-      "Add email, phone, and address (optional)",
-      "Save the customer",
-      "View customer purchase history on their card"
+      "Acesse a página Clientes",
+      "Clique em 'Adicionar cliente'",
+      "Informe o nome do cliente (obrigatório)",
+      "Adicione e-mail, telefone e endereço (opcional)",
+      "Salve o cliente",
+      "Veja o histórico de compras no card do cliente"
     ]
   },
   {
     id: 5,
-    title: "Viewing Analytics",
+    title: "Visualizando relatórios",
     category: "analytics",
     icon: BarChart3,
     duration: "5 min",
-    difficulty: "Intermediate",
+    difficulty: "Intermediário",
     steps: [
-      "Navigate to Analytics page",
-      "Review KPI cards for revenue, profit, and average order value",
-      "Check the sales trend chart for daily performance",
-      "Analyze sales by category in the pie chart",
-      "Review top selling products",
-      "Export reports using the 'Export Report' button"
+      "Acesse a página Relatórios",
+      "Revise os KPIs de receita, lucro e ticket médio",
+      "Confira o gráfico de tendência de vendas por dia",
+      "Analise vendas por categoria no gráfico de pizza",
+      "Revise os produtos mais vendidos",
+      "Exporte relatórios usando o botão 'Exportar relatório'"
     ]
   },
   {
     id: 6,
-    title: "Import/Export Products",
+    title: "Importar/exportar produtos",
     category: "products",
     icon: Package,
     duration: "4 min",
-    difficulty: "Intermediate",
+    difficulty: "Intermediário",
     steps: [
-      "Go to Products page",
-      "Click 'Import/Export' button",
-      "To export: Click 'Export to CSV' to download all products",
-      "To import: Prepare CSV with columns: SKU, Name, Description, Cost Price, Sell Price, Stock, etc.",
-      "Upload the CSV file",
-      "Review and confirm the import"
+      "Acesse a página Produtos",
+      "Clique no botão 'Importar/Exportar'",
+      "Para exportar: clique em 'Exportar para CSV' para baixar todos os produtos",
+      "Para importar: prepare um CSV com colunas: SKU, nome, descrição, preço de custo, preço de venda, estoque etc.",
+      "Envie o arquivo CSV",
+      "Revise e confirme a importação"
     ]
   },
   {
     id: 7,
-    title: "Refunding Sales",
+    title: "Reembolsando vendas",
     category: "sales",
     icon: ShoppingCart,
     duration: "2 min",
-    difficulty: "Intermediate",
+    difficulty: "Intermediário",
     steps: [
-      "Navigate to Sales page",
-      "Find the completed sale you want to refund",
-      "Click the refund icon (circular arrow)",
-      "Confirm the refund",
-      "Stock will be automatically restored",
-      "Sale status changes to 'Refunded'"
+      "Acesse a página Vendas",
+      "Encontre a venda concluída que deseja reembolsar",
+      "Clique no ícone de reembolso (seta circular)",
+      "Confirme o reembolso",
+      "O estoque será restaurado automaticamente",
+      "O status da venda muda para 'Reembolsada'"
     ]
   },
   {
     id: 8,
-    title: "Using AI Assistant",
+    title: "Usando o assistente de IA",
     category: "help",
     icon: PlayCircle,
     duration: "3 min",
-    difficulty: "Beginner",
+    difficulty: "Iniciante",
     steps: [
-      "Go to Help page from sidebar",
-      "Use quick help buttons for common questions",
-      "Or type your question in the chat",
-      "AI assistant will provide step-by-step guidance",
-      "Ask follow-up questions for more details"
+      "Acesse Ajuda pelo menu lateral",
+      "Use os botões de ajuda rápida para perguntas comuns",
+      "Ou digite sua pergunta no chat",
+      "O assistente de IA dará orientações passo a passo",
+      "Faça perguntas de acompanhamento para mais detalhes"
     ]
   },
   {
     id: 9,
-    title: "Managing Settings",
+    title: "Gerenciando configurações",
     category: "settings",
     icon: Settings,
     duration: "3 min",
-    difficulty: "Beginner",
+    difficulty: "Iniciante",
     steps: [
-      "Navigate to Settings page",
-      "Update store information (name, address, contact)",
-      "Configure tax rate for sales",
-      "Customize receipt settings",
-      "Toggle between dark and light mode",
-      "Save changes"
+      "Acesse a página Configurações",
+      "Atualize as informações da loja (nome, endereço e contato)",
+      "Configure a taxa de imposto das vendas",
+      "Personalize as configurações do recibo",
+      "Alterne entre modo escuro e claro",
+      "Salve as alterações"
     ]
   }
 ];
 
 const categories = [
-  { value: "all", label: "All Topics", icon: BookOpen },
-  { value: "basics", label: "Basics", icon: BookOpen },
-  { value: "products", label: "Products", icon: Package },
-  { value: "pos", label: "POS", icon: ShoppingCart },
-  { value: "customers", label: "Customers", icon: Users },
-  { value: "analytics", label: "Analytics", icon: BarChart3 },
-  { value: "sales", label: "Sales", icon: ShoppingCart },
-  { value: "help", label: "Help", icon: PlayCircle },
-  { value: "settings", label: "Settings", icon: Settings }
+  { value: "all", label: "Todos", icon: BookOpen },
+  { value: "basics", label: "Básico", icon: BookOpen },
+  { value: "products", label: "Produtos", icon: Package },
+  { value: "pos", label: "PDV", icon: ShoppingCart },
+  { value: "customers", label: "Clientes", icon: Users },
+  { value: "analytics", label: "Relatórios", icon: BarChart3 },
+  { value: "sales", label: "Vendas", icon: ShoppingCart },
+  { value: "help", label: "Ajuda", icon: PlayCircle },
+  { value: "settings", label: "Configurações", icon: Settings }
 ];
 
 export default function Tutorial() {
@@ -185,32 +185,32 @@ export default function Tutorial() {
   });
 
   const difficultyColors = {
-    Beginner: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
-    Intermediate: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400',
-    Advanced: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
+    Iniciante: 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400',
+    Intermediário: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400',
+    Avançado: 'bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400'
   };
 
   return (
     <div className="p-4 md:p-8 space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Tutorials & Guides</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Tutoriais e guias</h1>
         <p className="text-gray-600 dark:text-gray-400">
-          Step-by-step guides to help you master the system
+          Guias passo a passo para dominar o sistema
         </p>
       </div>
 
-      {/* Search */}
+      {/* Busca */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
         <Input
-          placeholder="Search tutorials..."
+          placeholder="Buscar tutoriais..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="pl-10 dark:bg-gray-900 dark:border-gray-800"
         />
       </div>
 
-      {/* Category Filter */}
+      {/* Filtro de categoria */}
       <div className="flex gap-2 overflow-x-auto pb-2">
         {categories.map((category) => {
           const Icon = category.icon;
@@ -228,7 +228,7 @@ export default function Tutorial() {
         })}
       </div>
 
-      {/* Tutorials Grid */}
+      {/* Grade de tutoriais */}
       <div className="grid md:grid-cols-2 gap-6">
         {filteredTutorials.map((tutorial) => {
           const Icon = tutorial.icon;
@@ -272,7 +272,7 @@ export default function Tutorial() {
 
               {isExpanded && (
                 <CardContent className="p-6">
-                  <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Steps:</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Passos:</h4>
                   <div className="space-y-3">
                     {tutorial.steps.map((step, idx) => (
                       <div key={idx} className="flex items-start gap-3">
@@ -289,7 +289,7 @@ export default function Tutorial() {
                     <div className="flex items-center gap-2 text-green-700 dark:text-green-400">
                       <CheckCircle className="w-5 h-5" />
                       <span className="font-medium text-sm">
-                        Follow these steps and you'll be all set!
+                        Siga estes passos e pronto, sem drama.
                       </span>
                     </div>
                   </div>
@@ -304,10 +304,10 @@ export default function Tutorial() {
         <div className="text-center py-20">
           <BookOpen className="w-16 h-16 mx-auto mb-4 text-gray-400" />
           <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-            No tutorials found
+            Nenhum tutorial encontrado
           </h3>
           <p className="text-gray-600 dark:text-gray-400">
-            Try adjusting your search or filter
+            Tente ajustar sua busca ou filtro
           </p>
         </div>
       )}

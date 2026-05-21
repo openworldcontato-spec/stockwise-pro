@@ -16,58 +16,57 @@ import {
 } from "@/components/ui/select";
 
 const currencies = [
-  { code: "PHP", name: "Philippine Peso (₱)" },
-  { code: "USD", name: "US Dollar ($)" },
+  { code: "BRL", name: "Real brasileiro (R$)" },
+  { code: "USD", name: "Dólar americano ($)" },
   { code: "EUR", name: "Euro (€)" },
-  { code: "GBP", name: "British Pound (£)" },
-  { code: "JPY", name: "Japanese Yen (¥)" },
-  { code: "CNY", name: "Chinese Yuan (¥)" },
-  { code: "KRW", name: "South Korean Won (₩)" },
-  { code: "SGD", name: "Singapore Dollar (S$)" },
-  { code: "MYR", name: "Malaysian Ringgit (RM)" },
-  { code: "THB", name: "Thai Baht (฿)" },
-  { code: "IDR", name: "Indonesian Rupiah (Rp)" },
-  { code: "VND", name: "Vietnamese Dong (₫)" },
-  { code: "INR", name: "Indian Rupee (₹)" },
-  { code: "AUD", name: "Australian Dollar (A$)" },
-  { code: "CAD", name: "Canadian Dollar (C$)" },
-  { code: "CHF", name: "Swiss Franc (Fr)" },
-  { code: "NZD", name: "New Zealand Dollar (NZ$)" },
-  { code: "HKD", name: "Hong Kong Dollar (HK$)" },
-  { code: "TWD", name: "Taiwan Dollar (NT$)" },
-  { code: "BRL", name: "Brazilian Real (R$)" },
-  { code: "MXN", name: "Mexican Peso (Mex$)" },
-  { code: "AED", name: "UAE Dirham (د.إ)" },
-  { code: "SAR", name: "Saudi Riyal (﷼)" }
+  { code: "GBP", name: "Libra esterlina (£)" },
+  { code: "JPY", name: "Iene japonês (¥)" },
+  { code: "CNY", name: "Yuan chinês (¥)" },
+  { code: "KRW", name: "Won sul-coreano (₩)" },
+  { code: "SGD", name: "Dólar de Singapura (S$)" },
+  { code: "MYR", name: "Ringgit malaio (RM)" },
+  { code: "THB", name: "Baht tailandês (฿)" },
+  { code: "IDR", name: "Rupia indonésia (Rp)" },
+  { code: "VND", name: "Dong vietnamita (₫)" },
+  { code: "INR", name: "Rupia indiana (₹)" },
+  { code: "AUD", name: "Dólar australiano (A$)" },
+  { code: "CAD", name: "Dólar canadense (C$)" },
+  { code: "CHF", name: "Franco suíço (Fr)" },
+  { code: "NZD", name: "Dólar neozelandês (NZ$)" },
+  { code: "HKD", name: "Dólar de Hong Kong (HK$)" },
+  { code: "TWD", name: "Dólar taiwanês (NT$)" },
+  { code: "MXN", name: "Peso mexicano (Mex$)" },
+  { code: "AED", name: "Dirham dos Emirados (د.إ)" },
+  { code: "SAR", name: "Riyal saudita (﷼)" }
 ];
 
 export default function Settings() {
   const [storeSettings, setStoreSettings] = useState({
-    store_name: "InvenTrack Store",
-    address: "123 Business Street",
-    phone: "+63 (917) 123-4567",
-    email: "store@inventtrack.com",
-    tax_rate: 12,
-    currency: "PHP"
+    store_name: "StockWise PRO Loja",
+    address: "Rua da Empresa, 123",
+    phone: "+55 (11) 99999-9999",
+    email: "loja@stockwisepro.com",
+    tax_rate: 0,
+    currency: "BRL"
   });
 
   const [receiptSettings, setReceiptSettings] = useState({
-    receipt_header: "Thank you for your purchase!",
-    receipt_footer: "Visit us again soon",
+    receipt_header: "Obrigado pela sua compra!",
+    receipt_footer: "Volte sempre",
     show_tax_details: true,
     show_store_logo: true
   });
 
   const handleSaveStore = () => {
-    toast.success("Store settings saved successfully!");
+    toast.success("Configurações da loja salvas com sucesso!");
   };
 
   const handleSaveReceipt = () => {
-    toast.success("Receipt settings saved successfully!");
+    toast.success("Configurações do recibo salvas com sucesso!");
   };
 
-  const handleLogout = async () => {
-    if (confirm("Are you sure you want to logout?")) {
+  const handleSair = async () => {
+    if (confirm("Tem certeza que deseja sair?")) {
       await base44.auth.logout();
     }
   };
@@ -75,24 +74,24 @@ export default function Settings() {
   return (
     <div className="p-4 md:p-8 space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Settings</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Configurações</h1>
         <p className="text-gray-600 dark:text-gray-400">
-          Manage your store and system preferences
+          Gerencie sua loja e as preferências do sistema
         </p>
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
-        {/* Store Settings */}
+        {/* Configurações da loja */}
         <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
           <CardHeader className="border-b border-gray-200 dark:border-gray-800">
             <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
               <Store className="w-5 h-5" />
-              Store Information
+              Informações da loja
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="store_name">Store Name</Label>
+              <Label htmlFor="store_name">Nome da loja</Label>
               <Input
                 id="store_name"
                 value={storeSettings.store_name}
@@ -102,7 +101,7 @@ export default function Settings() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="address">Address</Label>
+              <Label htmlFor="address">Endereço</Label>
               <Textarea
                 id="address"
                 value={storeSettings.address}
@@ -113,7 +112,7 @@ export default function Settings() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone</Label>
+                <Label htmlFor="phone">Telefone</Label>
                 <Input
                   id="phone"
                   value={storeSettings.phone}
@@ -135,7 +134,7 @@ export default function Settings() {
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="tax_rate">Tax Rate (%)</Label>
+                <Label htmlFor="tax_rate">Taxa de imposto (%)</Label>
                 <Input
                   id="tax_rate"
                   type="number"
@@ -148,7 +147,7 @@ export default function Settings() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="currency">Currency</Label>
+                <Label htmlFor="currency">Moeda</Label>
                 <Select value={storeSettings.currency} onValueChange={(value) => setStoreSettings({ ...storeSettings, currency: value })}>
                   <SelectTrigger className="dark:bg-gray-800 dark:border-gray-700">
                     <SelectValue />
@@ -169,45 +168,45 @@ export default function Settings() {
               className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-2"
             >
               <Save className="w-4 h-4" />
-              Save Store Settings
+              Salvar configurações da loja
             </Button>
           </CardContent>
         </Card>
 
-        {/* Receipt Settings */}
+        {/* Configurações do recibo */}
         <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
           <CardHeader className="border-b border-gray-200 dark:border-gray-800">
             <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
               <Receipt className="w-5 h-5" />
-              Receipt Settings
+              Configurações do recibo
             </CardTitle>
           </CardHeader>
           <CardContent className="p-6 space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="receipt_header">Receipt Header</Label>
+              <Label htmlFor="receipt_header">Cabeçalho do recibo</Label>
               <Input
                 id="receipt_header"
                 value={receiptSettings.receipt_header}
                 onChange={(e) => setReceiptSettings({ ...receiptSettings, receipt_header: e.target.value })}
-                placeholder="Thank you for your purchase!"
+                placeholder="Obrigado pela sua compra!"
                 className="dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="receipt_footer">Receipt Footer</Label>
+              <Label htmlFor="receipt_footer">Rodapé do recibo</Label>
               <Textarea
                 id="receipt_footer"
                 value={receiptSettings.receipt_footer}
                 onChange={(e) => setReceiptSettings({ ...receiptSettings, receipt_footer: e.target.value })}
-                placeholder="Visit us again soon"
+                placeholder="Volte sempre"
                 className="h-20 dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
 
             <div className="space-y-3">
               <div className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700">
-                <span className="text-sm text-gray-900 dark:text-gray-100">Show Tax Details</span>
+                <span className="text-sm text-gray-900 dark:text-gray-100">Mostrar detalhes dos impostos</span>
                 <button
                   onClick={() => setReceiptSettings({ ...receiptSettings, show_tax_details: !receiptSettings.show_tax_details })}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
@@ -223,7 +222,7 @@ export default function Settings() {
               </div>
 
               <div className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700">
-                <span className="text-sm text-gray-900 dark:text-gray-100">Show Store Logo</span>
+                <span className="text-sm text-gray-900 dark:text-gray-100">Mostrar logo da loja</span>
                 <button
                   onClick={() => setReceiptSettings({ ...receiptSettings, show_store_logo: !receiptSettings.show_store_logo })}
                   className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
@@ -244,43 +243,43 @@ export default function Settings() {
               className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-2"
             >
               <Save className="w-4 h-4" />
-              Save Receipt Settings
+              Salvar configurações do recibo
             </Button>
           </CardContent>
         </Card>
       </div>
 
-      {/* System Actions */}
+      {/* Ações do sistema */}
       <Card className="border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
         <CardHeader className="border-b border-gray-200 dark:border-gray-800">
           <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-gray-100">
             <SettingsIcon className="w-5 h-5" />
-            System
+            Sistema
           </CardTitle>
         </CardHeader>
         <CardContent className="p-6">
           <div className="space-y-4">
             <div className="flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700">
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">App Version</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">1.0.0 - Production</p>
+                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Versão do app</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">1.0.0 - Produção</p>
               </div>
             </div>
 
             <div className="flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700">
               <div>
-                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Theme</h4>
-                <p className="text-sm text-gray-600 dark:text-gray-400">Toggle in sidebar footer</p>
+                <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">Tema</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-400">Alterar no rodapé da barra lateral</p>
               </div>
             </div>
 
             <Button
-              onClick={handleLogout}
+              onClick={handleSair}
               variant="destructive"
               className="w-full gap-2"
             >
               <LogOut className="w-4 h-4" />
-              Logout
+              Sair
             </Button>
           </div>
         </CardContent>

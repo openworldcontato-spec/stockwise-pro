@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Users, Plus, Search, Edit, Trash2, Mail, Phone, MapPin } from "lucide-react";
+import { formatCurrency } from "@/lib/formatters";
 import {
   Dialog,
   DialogContent,
@@ -85,7 +86,7 @@ export default function Customers() {
   };
 
   const handleDelete = (id) => {
-    if (confirm('Delete this customer?')) {
+    if (confirm('Excluir este cliente?')) {
       deleteMutation.mutate(id);
     }
   };
@@ -100,8 +101,8 @@ export default function Customers() {
     <div className="p-4 md:p-8 space-y-6">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Customers</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">{filteredCustomers.length} total customers</p>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Clientes</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-1">{filteredCustomers.length} clientes no total</p>
         </div>
         <Button
           onClick={() => {
@@ -111,14 +112,14 @@ export default function Customers() {
           className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 gap-2"
         >
           <Plus className="w-4 h-4" />
-          Add Customer
+          Adicionar cliente
         </Button>
       </div>
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
         <Input
-          placeholder="Search customers..."
+          placeholder="Buscar clientes..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="pl-10 dark:bg-gray-900 dark:border-gray-800"
@@ -134,11 +135,11 @@ export default function Customers() {
       ) : filteredCustomers.length === 0 ? (
         <div className="text-center py-20">
           <Users className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">No customers yet</h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">Start building your customer base</p>
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Nenhum cliente ainda</h3>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">Comece a construir sua base de clientes</p>
           <Button onClick={() => setShowForm(true)} className="bg-gradient-to-r from-blue-600 to-purple-600">
             <Plus className="w-4 h-4 mr-2" />
-            Add First Customer
+            Adicionar primeiro cliente
           </Button>
         </div>
       ) : (
@@ -151,7 +152,7 @@ export default function Customers() {
                     <CardTitle className="text-gray-900 dark:text-gray-100">{customer.name}</CardTitle>
                     {customer.purchase_count > 0 && (
                       <Badge variant="outline" className="mt-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">
-                        {customer.purchase_count} purchases
+                        {customer.purchase_count} compras
                       </Badge>
                     )}
                   </div>
@@ -186,9 +187,9 @@ export default function Customers() {
                 )}
                 {customer.total_purchases > 0 && (
                   <div className="pt-3 border-t border-gray-200 dark:border-gray-800">
-                    <p className="text-xs text-gray-500 dark:text-gray-400">Total Spent</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">Total gasto</p>
                     <p className="text-xl font-bold text-blue-600 dark:text-blue-400">
-                      ${customer.total_purchases?.toFixed(2)}
+                      {formatCurrency(customer.total_purchases)}
                     </p>
                   </div>
                 )}
@@ -202,12 +203,12 @@ export default function Customers() {
         <DialogContent className="dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle className="text-gray-900 dark:text-gray-100">
-              {editingCustomer ? 'Edit Customer' : 'Add New Customer'}
+              {editingCustomer ? 'Editar cliente' : 'Adicionar novo cliente'}
             </DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Name *</Label>
+              <Label htmlFor="name">Nome *</Label>
               <Input
                 id="name"
                 value={formData.name}
@@ -227,7 +228,7 @@ export default function Customers() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone</Label>
+              <Label htmlFor="phone">Telefone</Label>
               <Input
                 id="phone"
                 value={formData.phone}
@@ -236,7 +237,7 @@ export default function Customers() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="address">Address</Label>
+              <Label htmlFor="address">Endereço</Label>
               <Input
                 id="address"
                 value={formData.address}
@@ -245,7 +246,7 @@ export default function Customers() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="notes">Notes</Label>
+              <Label htmlFor="notes">Observações</Label>
               <Textarea
                 id="notes"
                 value={formData.notes}
@@ -255,10 +256,10 @@ export default function Customers() {
             </div>
             <div className="flex justify-end gap-3 pt-4">
               <Button type="button" variant="outline" onClick={() => setShowForm(false)} className="dark:border-gray-700">
-                Cancel
+                Cancelar
               </Button>
               <Button type="submit" disabled={createMutation.isPending || updateMutation.isPending} className="bg-gradient-to-r from-blue-600 to-purple-600">
-                {createMutation.isPending || updateMutation.isPending ? 'Saving...' : editingCustomer ? 'Update' : 'Create'}
+                {createMutation.isPending || updateMutation.isPending ? 'Salvando...' : editingCustomer ? 'Atualizar' : 'Criar'}
               </Button>
             </div>
           </form>
