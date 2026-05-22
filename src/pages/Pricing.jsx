@@ -4,8 +4,8 @@ import { Check, Zap, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-const PRICE_MONTHLY = "price_1TZgefLcBUtJ8M6wukBzogWm";
-const PRICE_ANNUAL = "price_1TZgefLcBUtJ8M6wewcVA4DJ";
+const PRICE_MONTHLY = "price_1TRLh1HKgQbXEpueuqLnkmeQ";
+const PRICE_ANNUAL = "price_1TZgnKHKgQbXEpue5LUyazJg";
 
 const features = [
   "PDV completo com leitor de código de barras",
