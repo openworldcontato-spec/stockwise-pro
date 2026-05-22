@@ -8,6 +8,7 @@ import Analytics from './pages/Analytics';
 import Tutorial from './pages/Tutorial';
 import About from './pages/About';
 import Settings from './pages/Settings';
+import Pricing from './pages/Pricing';
 import Layout from './Layout.jsx';
 
 
@@ -22,6 +23,7 @@ export const PAGES = {
     "Tutorial": Tutorial,
     "About": About,
     "Settings": Settings,
+    "Pricing": Pricing,
 }
 
 export const pagesConfig = {

@@ -13,6 +13,7 @@ import {
   HelpCircle,
   Info,
   BookOpen,
+  Crown,
   Menu,
   Moon,
   Sun,
@@ -51,6 +52,7 @@ const navigationItems = [
 ];
 
 const secondaryItems = [
+  { title: "Planos", url: createPageUrl("Pricing"), icon: Crown },
   { title: "Tutoriais", url: createPageUrl("Tutorial"), icon: BookOpen },
   { title: "Ajuda", url: createPageUrl("Help"), icon: HelpCircle },
   { title: "Sobre", url: createPageUrl("About"), icon: Info },
