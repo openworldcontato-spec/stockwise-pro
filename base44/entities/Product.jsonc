@@ -1,0 +1,61 @@
+{
+  "name": "Product",
+  "type": "object",
+  "properties": {
+    "sku": {
+      "type": "string",
+      "description": "Stock Keeping Unit - unique identifier"
+    },
+    "name": {
+      "type": "string",
+      "description": "Product name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Product description"
+    },
+    "category_id": {
+      "type": "string",
+      "description": "Category reference"
+    },
+    "cost_price": {
+      "type": "number",
+      "description": "Cost price per unit"
+    },
+    "sell_price": {
+      "type": "number",
+      "description": "Selling price per unit"
+    },
+    "stock_quantity": {
+      "type": "number",
+      "description": "Current stock quantity"
+    },
+    "reorder_level": {
+      "type": "number",
+      "description": "Minimum stock level before reorder alert"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Product image URL"
+    },
+    "barcode": {
+      "type": "string",
+      "description": "Barcode for scanner support"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "discontinued",
+        "out_of_stock"
+      ],
+      "default": "active"
+    }
+  },
+  "required": [
+    "sku",
+    "name",
+    "sell_price",
+    "stock_quantity"
+  ]
+}

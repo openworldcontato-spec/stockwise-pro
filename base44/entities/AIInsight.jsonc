@@ -1,0 +1,62 @@
+{
+  "name": "AIInsight",
+  "type": "object",
+  "properties": {
+    "insight_type": {
+      "type": "string",
+      "enum": [
+        "reorder_alert",
+        "top_seller",
+        "slow_mover",
+        "profit_warning",
+        "bundle_suggestion",
+        "price_optimization",
+        "trend_analysis"
+      ],
+      "description": "Type of insight"
+    },
+    "title": {
+      "type": "string",
+      "description": "Insight title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed insight description"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "product_ids": {
+      "type": "string",
+      "description": "JSON array of related product IDs"
+    },
+    "action_url": {
+      "type": "string",
+      "description": "URL for action button"
+    },
+    "action_label": {
+      "type": "string",
+      "description": "Label for action button"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false
+    },
+    "metadata": {
+      "type": "string",
+      "description": "Additional JSON metadata"
+    }
+  },
+  "required": [
+    "insight_type",
+    "title",
+    "description"
+  ]
+}

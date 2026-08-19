@@ -1,0 +1,50 @@
+{
+  "name": "SaleItem",
+  "type": "object",
+  "properties": {
+    "sale_id": {
+      "type": "string",
+      "description": "Sale reference"
+    },
+    "product_id": {
+      "type": "string",
+      "description": "Product reference"
+    },
+    "product_name": {
+      "type": "string",
+      "description": "Product name at time of sale"
+    },
+    "product_sku": {
+      "type": "string",
+      "description": "Product SKU at time of sale"
+    },
+    "quantity": {
+      "type": "number",
+      "description": "Quantity sold"
+    },
+    "unit_price": {
+      "type": "number",
+      "description": "Unit price at time of sale"
+    },
+    "cost_price": {
+      "type": "number",
+      "description": "Cost price for profit calculation"
+    },
+    "discount": {
+      "type": "number",
+      "description": "Discount applied to this item",
+      "default": 0
+    },
+    "total": {
+      "type": "number",
+      "description": "Total for this line item"
+    }
+  },
+  "required": [
+    "sale_id",
+    "product_id",
+    "quantity",
+    "unit_price",
+    "total"
+  ]
+}

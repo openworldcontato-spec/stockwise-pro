@@ -1,0 +1,25 @@
+{
+  "name": "Category",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Category name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Category description"
+    },
+    "parent_id": {
+      "type": "string",
+      "description": "Parent category ID for nested categories"
+    },
+    "color": {
+      "type": "string",
+      "description": "Color code for UI display"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

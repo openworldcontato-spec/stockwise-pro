@@ -1,0 +1,52 @@
+{
+  "name": "StockAdjustment",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "string",
+      "description": "Product reference"
+    },
+    "product_name": {
+      "type": "string",
+      "description": "Product name for reference"
+    },
+    "adjustment_type": {
+      "type": "string",
+      "enum": [
+        "sale",
+        "return",
+        "damage",
+        "restock",
+        "inventory_count",
+        "other"
+      ],
+      "description": "Type of adjustment"
+    },
+    "quantity_change": {
+      "type": "number",
+      "description": "Quantity change (positive or negative)"
+    },
+    "previous_quantity": {
+      "type": "number",
+      "description": "Stock quantity before adjustment"
+    },
+    "new_quantity": {
+      "type": "number",
+      "description": "Stock quantity after adjustment"
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for adjustment"
+    },
+    "reference_id": {
+      "type": "string",
+      "description": "Reference to sale or other transaction"
+    }
+  },
+  "required": [
+    "product_id",
+    "adjustment_type",
+    "quantity_change",
+    "new_quantity"
+  ]
+}
